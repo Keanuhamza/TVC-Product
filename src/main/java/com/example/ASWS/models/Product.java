@@ -2,24 +2,27 @@ package com.example.ASWS.models;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // Product Class
 @Entity
-class Product {
+public class Product {
 	// Attributes of class fields (Parameters) are declared.
+	private @Id @GeneratedValue Long id;
 	private String productCategory;
 	private String name;
 	private float price;
 	private int stockQuantity;
+
+	@OneToOne
+  	private ProductDetail productDetail;
 	
 	// Default Constructor
-	Product() {}
+	public Product() {}
 	
 	// Parameterized Constructor
-	Product(String productCategory, String name, float price, int stockQuantity) {
+	public Product(Long id, String productCategory, String name, float price, int stockQuantity) {
+		this.id = id;
 		this.productCategory = productCategory;
 		this.name = name;
 		this.price = price;
@@ -27,6 +30,10 @@ class Product {
 	}
 	  
 	// Accessor Methods
+
+	public Long getId() {
+        return id;
+    }
 	  
 	public String getProductCategory() {
 		return this.productCategory;
@@ -43,8 +50,16 @@ class Product {
 	public int getStockQuantity() {
 		return this.stockQuantity;
 	}
+
+	public ProductDetail geProductDetail() {
+		return productDetail;
+	}
 	  
 	// Mutator Methods
+
+	public void setId(Long id) {
+        this.id = id;
+    }
 	  
 	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
@@ -61,20 +76,27 @@ class Product {
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
+
+	public void setProductDetail(ProductDetail productDetail) {
+		this.productDetail = productDetail;
+	}
 		
 	// Override Methods
 		
 	@Override
 	public java.lang.String toString() {
 		return "Product{" +
-	                "Product Category=" + productCategory +
+					"ID: " + id +
+	                ", Product Category=" + productCategory +
 	                ", Name='" + name + '\'' +
-	                ", Price=" + price + ", Stock Quantity=" + stockQuantity +
+	                ", Price=" + price + 
+					", Stock Quantity=" + stockQuantity +
+					", ProductDetail=" + productDetail +
 	                '}';
 	}
 	    
 	@Override
 	public int hashCode() {
-		return java.util.Objects.hash(super.hashCode(), productCategory, name, price, stockQuantity);
+		return java.util.Objects.hash(super.hashCode(), id, productCategory, name, price, stockQuantity, productDetail);
 	}	
 }

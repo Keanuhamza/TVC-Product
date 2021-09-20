@@ -1,30 +1,32 @@
 package com.example.ASWS.models;
 
-package com.example.ASWS.models;
-
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // ProductDetail Class
 @Entity
-class ProductDetail {
+public class ProductDetail {
 	// Attributes of class fields (Parameters) are declared.
+	private @Id @GeneratedValue Long id;
 	private String description;
 	private String comment;
 
 	// Default Constructor
-	ProductDetail() {}
+	public ProductDetail() {}
 	
 	// Parameterized Constructor
-	ProductDetail(String description, String comment) {
+	public ProductDetail(Long id, String description, String comment) {
+		this.id = id;
 		this.description = description;
 		this.comment = comment;
 	}
 	  
 	// Accessor Methods
+
+	public Long getId() {
+        return id;
+    }
 	  
 	public String getDescription() {
 		return this.description;
@@ -35,6 +37,10 @@ class ProductDetail {
 	}
 	  
 	// Mutator Methods
+
+	public void setId(Long id) {
+        this.id = id;
+    }
 	  
 	public void setDescription(String description) {
 		this.description = description;
@@ -49,13 +55,14 @@ class ProductDetail {
 	@Override
 	public java.lang.String toString() {
 		return "ProductDetail{" +
-	                "Description=" + description +
+					"ID: " + id + 
+	                ", Description=" + description +
 	                ", Comment='" + comment + '\'' +
 	                '}';
 	}
 	    
 	@Override
 	public int hashCode() {
-		return java.util.Objects.hash(super.hashCode(), description, comment);
+		return java.util.Objects.hash(super.hashCode(), id,  description, comment);
 	}	
 }
