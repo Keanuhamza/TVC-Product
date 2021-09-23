@@ -3,6 +3,7 @@ package com.example.ASWS.controllers;
 import java.util.List;
 
 import com.example.ASWS.models.*;
+import com.example.ASWS.services.ProductDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

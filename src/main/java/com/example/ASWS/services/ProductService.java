@@ -1,6 +1,8 @@
-package com.example.ASWS.models;
+package com.example.ASWS.services;
 import com.example.ASWS.repositories.*;
 import com.example.ASWS.exceptions.*;
+import com.example.ASWS.models.Product;
+import com.example.ASWS.models.ProductDetail;
 
 import java.util.List;
 
@@ -36,7 +38,6 @@ public class ProductService {
       } 
 
       return "\nError, product name already exists: " + product.getName();
-
     }
 
     public Product getProduct(Long id) {   
