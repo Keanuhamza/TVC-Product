@@ -17,7 +17,7 @@ public class ProductService {
         this.productDetailRepository = productDetailRepository;
     }
 
-    public Product addProduct(Product product) { 
+    public String addProduct(Product product) { 
     int totalOccurances = 0; // there should only be 1 product with the name inputted above.
       for (Product p : getAllProducts()) {
           if (p.getName().equals(product.getName())) {
@@ -25,11 +25,18 @@ public class ProductService {
           }
       }
       if (totalOccurances > 0) {
-          throw new ProductNameDuplicateException(product.getName());
+          try {
+            throw new ProductNameDuplicateException(product.getName());
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
       } else {
         repository.save(product);
-        return product;
-      }  
+        return product.toString();
+      } 
+
+      return "\nError, product name already exists: " + product.getName();
+
     }
 
     public Product getProduct(Long id) {   
@@ -62,7 +69,7 @@ public class ProductService {
                 int currentQuantity = product.getStockQuantity();
                 product.setStockQuantity(currentQuantity - quantity);
 
-                Product prod = updateProduct(product, id);
+                updateProduct(product, id);
                 return "Quantity Updated Successfully.";
             }
         }
@@ -70,7 +77,7 @@ public class ProductService {
     }
 
     
-    public Product updateProduct(Product newProduct, Long id) {
+    public String updateProduct(Product newProduct, Long id) {
     Product prod = repository.findById(id)
       .map(product -> {
         product.setProductCategory(newProduct.getProductCategory());
@@ -91,11 +98,17 @@ public class ProductService {
           }
       }
       if (totalOccurances > 1) {
-          throw new ProductNameDuplicateException(prod.getName());
+        try {
+            throw new ProductNameDuplicateException(prod.getName());
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
       } else {
         repository.save(prod);
-        return prod;
+        return prod.toString();
       }
+
+      return "\nError, product name already exists: " + prod.getName();
     }
 
     public Product updateProductProductDetail(Long id, long productDetailid) {

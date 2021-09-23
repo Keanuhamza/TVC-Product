@@ -28,7 +28,7 @@ public class ProductController {
   // end::get-aggregate-root[]
 
   @PostMapping("/product")
-  Product newProduct(@RequestBody Product newProduct) {
+  String newProduct(@RequestBody Product newProduct) {
     return productService.addProduct(newProduct);
   }
 
@@ -50,7 +50,7 @@ public class ProductController {
   }
 
   @PutMapping("/product/{id}")
-  Product replaceProduct(@RequestBody Product newProduct, @PathVariable Long id) {
+  String replaceProduct(@RequestBody Product newProduct, @PathVariable Long id) {
     return productService.updateProduct(newProduct, id);
   }
 
