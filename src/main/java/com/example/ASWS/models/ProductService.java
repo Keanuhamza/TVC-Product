@@ -17,8 +17,19 @@ public class ProductService {
         this.productDetailRepository = productDetailRepository;
     }
 
-    public Product addProduct(Product product) {   
-        return repository.save(product);
+    public Product addProduct(Product product) { 
+    int totalOccurances = 0; // there should only be 1 product with the name inputted above.
+      for (Product p : getAllProducts()) {
+          if (p.getName().equals(product.getName())) {
+              totalOccurances++;
+          }
+      }
+      if (totalOccurances > 0) {
+          throw new ProductNameDuplicateException(product.getName());
+      } else {
+        repository.save(product);
+        return product;
+      }  
     }
 
     public Product getProduct(Long id) {   
@@ -55,23 +66,36 @@ public class ProductService {
                 return "Quantity Updated Successfully.";
             }
         }
-        return "Error."; // dummy value
+        return "Error."; // dummy value, an error is not possible in this contexts.
     }
 
     
     public Product updateProduct(Product newProduct, Long id) {
-    return repository.findById(id)
+    Product prod = repository.findById(id)
       .map(product -> {
         product.setProductCategory(newProduct.getProductCategory());
         product.setName(newProduct.getName());
         product.setPrice(newProduct.getPrice());
         product.setStockQuantity(newProduct.getStockQuantity());
-        return repository.save(product);
+        return product;
       })
       .orElseGet(() -> {
         newProduct.setId(id);
-        return repository.save(newProduct);
+        return newProduct;
       });
+
+      int totalOccurances = 0; // there should only be 1 product with the name inputted above.
+      for (Product p : getAllProducts()) {
+          if (p.getName().equals(prod.getName())) {
+              totalOccurances++;
+          }
+      }
+      if (totalOccurances > 1) {
+          throw new ProductNameDuplicateException(prod.getName());
+      } else {
+        repository.save(prod);
+        return prod;
+      }
     }
 
     public Product updateProductProductDetail(Long id, long productDetailid) {
