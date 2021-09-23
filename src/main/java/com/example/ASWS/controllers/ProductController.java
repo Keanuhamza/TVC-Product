@@ -35,7 +35,19 @@ public class ProductController {
   // Single item
   @GetMapping("/product/{id}")
   Product one(@PathVariable Long id) {
-    return productService.getProduct(id); }
+    return productService.getProduct(id); 
+  }
+
+  // checking for inventory spaces
+  @GetMapping("/product/{pName}/quantity/{qty}")
+  float checkInventory(@PathVariable String pName, @PathVariable int qty) {
+    return productService.checkInventory(pName, qty); 
+  } 
+
+  @GetMapping("/product/{pName}/updateQuantity/{qty}")
+  String updateProductQuantity(@PathVariable String pName, @PathVariable int qty) {
+    return productService.updateProductQuantity(pName, qty);
+  }
 
   @PutMapping("/product/{id}")
   Product replaceProduct(@RequestBody Product newProduct, @PathVariable Long id) {

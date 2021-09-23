@@ -28,6 +28,36 @@ public class ProductService {
     public List<Product> getAllProducts() {   
         return repository.findAll();
     }
+
+    public float checkInventory(String productName, int quantity) {
+        
+        for (Product product : getAllProducts()) {
+            if(product.getName().equals(productName)) {
+                if (product.getStockQuantity() >= quantity) {
+                    return product.getPrice();
+                } else {
+                    return -1f; 
+                }
+            }
+        }
+        return -2f; // dummy value
+         
+    }
+
+    public String updateProductQuantity(String pName, int quantity) {
+        for (Product product : getAllProducts()) {
+            if(product.getName().equals(pName)) {
+                Long id = product.getId();
+                int currentQuantity = product.getStockQuantity();
+                product.setStockQuantity(currentQuantity - quantity);
+
+                Product prod = updateProduct(product, id);
+                return "Quantity Updated Successfully.";
+            }
+        }
+        return "Error."; // dummy value
+    }
+
     
     public Product updateProduct(Product newProduct, Long id) {
     return repository.findById(id)
