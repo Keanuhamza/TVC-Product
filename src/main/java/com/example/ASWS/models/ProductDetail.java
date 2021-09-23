@@ -64,5 +64,13 @@ public class ProductDetail {
 	@Override
 	public int hashCode() {
 		return java.util.Objects.hash(super.hashCode(), id,  description, comment);
-	}	
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ProductDetail that = (ProductDetail) o;
+		return id.equals(that.id) && description.equals(that.description) && comment.equals(that.comment);
+	}
 }

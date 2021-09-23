@@ -51,7 +51,7 @@ public class Product {
 		return this.stockQuantity;
 	}
 
-	public ProductDetail geProductDetail() {
+	public ProductDetail getProductDetail() {
 		return productDetail;
 	}
 	  
@@ -82,21 +82,30 @@ public class Product {
 	}
 		
 	// Override Methods
-		
+
 	@Override
-	public java.lang.String toString() {
-		return "Product{" +
-					"ID: " + id +
-	                ", Product Category=" + productCategory +
-	                ", Name='" + name + '\'' +
-	                ", Price=" + price + 
-					", Stock Quantity=" + stockQuantity +
-					", ProductDetail=" + productDetail +
-	                '}';
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (object == null || getClass() != object.getClass()) return false;
+		if (!super.equals(object)) return false;
+		Product product = (Product) object;
+		return Float.compare(product.price, price) == 0 && stockQuantity == product.stockQuantity && id.equals(product.id) && productCategory.equals(product.productCategory) && name.equals(product.name) && Objects.equals(productDetail, product.productDetail);
 	}
-	    
+
 	@Override
 	public int hashCode() {
-		return java.util.Objects.hash(super.hashCode(), id, productCategory, name, price, stockQuantity, productDetail);
-	}	
+		return Objects.hash(id, productCategory, name, price, stockQuantity, productDetail);
+	}
+
+	@Override
+	public String toString() {
+		return "Product{" +
+				"id=" + id +
+				", productCategory='" + productCategory + '\'' +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", stockQuantity=" + stockQuantity +
+				", productDetail=" + productDetail +
+				'}';
+	}
 }
