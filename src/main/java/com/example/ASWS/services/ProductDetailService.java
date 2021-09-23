@@ -1,6 +1,7 @@
-package com.example.ASWS.models;
+package com.example.ASWS.services;
 import com.example.ASWS.repositories.*;
 import com.example.ASWS.exceptions.*;
+import com.example.ASWS.models.ProductDetail;
 
 import java.util.List;
 

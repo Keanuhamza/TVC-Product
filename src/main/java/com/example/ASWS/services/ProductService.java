@@ -44,6 +44,17 @@ public class ProductService {
         return repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
+    public Product getProductByName(String productName) { 
+      for (Product product : getAllProducts()) {
+        if(product.getName().equals(productName)) {
+            return product;
+        } else {
+            throw new ProductNotFoundException(productName);
+          }
+      } 
+      return null; 
+  }
+
     public List<Product> getAllProducts() {   
         return repository.findAll();
     }

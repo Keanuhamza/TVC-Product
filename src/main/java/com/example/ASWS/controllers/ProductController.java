@@ -33,10 +33,16 @@ public class ProductController {
     return productService.addProduct(newProduct);
   }
 
-  // Single item
+  // Single item by product id
   @GetMapping("/product/{id}")
   Product one(@PathVariable Long id) {
     return productService.getProduct(id); 
+  }
+
+  // Single item by product name
+  @GetMapping("/productN/{productName}")
+  Product one(@PathVariable String productName) {
+    return productService.getProductByName(productName); 
   }
 
   // checking for inventory spaces
