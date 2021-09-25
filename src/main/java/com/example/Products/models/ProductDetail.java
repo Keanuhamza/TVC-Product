@@ -1,4 +1,4 @@
-package com.example.Product.models;
+package com.example.Products.models;
 
 import java.util.Objects;
 

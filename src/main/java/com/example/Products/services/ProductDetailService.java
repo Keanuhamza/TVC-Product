@@ -1,9 +1,9 @@
-package com.example.Product.services;
+package com.example.Products.services;
 import java.util.List;
 
-import com.example.Product.exceptions.*;
-import com.example.Product.models.ProductDetail;
-import com.example.Product.repositories.*;
+import com.example.Products.exceptions.*;
+import com.example.Products.models.ProductDetail;
+import com.example.Products.repositories.*;
 
 import org.springframework.stereotype.Service;
 

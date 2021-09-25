@@ -1,4 +1,4 @@
-package com.example.Product.exceptions;
+package com.example.Products.exceptions;
 
 public class ProductNameDuplicateException extends RuntimeException {
     public ProductNameDuplicateException(String pName) {

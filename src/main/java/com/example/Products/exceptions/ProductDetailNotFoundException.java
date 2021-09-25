@@ -1,4 +1,4 @@
-package com.example.Product.exceptions;
+package com.example.Products.exceptions;
 
 public class ProductDetailNotFoundException extends RuntimeException {
     public ProductDetailNotFoundException(Long id) {

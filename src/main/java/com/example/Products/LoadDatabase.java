@@ -1,7 +1,7 @@
-package com.example.Product;
+package com.example.Products;
 
-import com.example.Product.models.*;
-import com.example.Product.repositories.*;
+import com.example.Products.models.*;
+import com.example.Products.repositories.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
