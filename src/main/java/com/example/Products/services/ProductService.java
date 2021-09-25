@@ -19,6 +19,7 @@ public class ProductService {
         this.productDetailRepository = productDetailRepository;
     }
 
+    // add a product
     public String addProduct(Product product) { 
     int totalOccurances = 0; // there should only be 1 product with the name inputted above.
       for (Product p : getAllProducts()) {
@@ -32,11 +33,12 @@ public class ProductService {
           } catch (Exception e) {
             e.printStackTrace();
           }
-      } else {
-        repository.save(product);
-        return product.toString();
+      } else { // if the product name doesn't already exist
+        repository.save(product); // save the product
+        return product.toString(); // return the product
       } 
 
+      // this will be returned if the product name already exists
       return "\nError, product name already exists: " + product.getName();
     }
 
@@ -44,6 +46,7 @@ public class ProductService {
         return repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
+    // get a product by name
     public Product getProductByName(String productName) { 
       for (Product product : getAllProducts()) {
         if(product.getName().equals(productName)) {
@@ -59,37 +62,39 @@ public class ProductService {
         return repository.findAll();
     }
 
+    // check inventory for stock
     public float checkInventory(String productName, int quantity) {
-        
-        for (Product product : getAllProducts()) {
-            if(product.getName().equals(productName)) {
-                if (product.getStockQuantity() >= quantity) {
-                    return product.getPrice();
-                } else {
-                    return -1f; 
-                }
-            }
+        // we can recall getProductByName methd to reduce this but wasn't done to show logic
+      for (Product product : getAllProducts()) {
+        if(product.getName().equals(productName)) {
+          if (product.getStockQuantity() >= quantity) {
+            return product.getPrice();
+          } else {
+            return -1f; 
+          }
         }
-        return -2f; // dummy value
+      }
+      return -2f; // dummy value
          
     }
 
+    // update product quantity
     public String updateProductQuantity(String pName, int quantity) {
-        for (Product product : getAllProducts()) {
+        for (Product product : getAllProducts()) { // get product by name can be used here
             if(product.getName().equals(pName)) {
                 Long id = product.getId();
                 int currentQuantity = product.getStockQuantity();
                 product.setStockQuantity(currentQuantity - quantity);
 
-                updateProduct(product, id);
+                updateProduct(product, id); // update product based on the products id 
                 return "Quantity Updated Successfully.";
             }
         }
         return "Error."; // dummy value, an error is not possible in this contexts.
     }
 
-    
-    public String updateProduct(Product newProduct, Long id) {
+    // update product
+    public String updateProduct(Product newProduct, Long id) { 
     Product prod = repository.findById(id)
       .map(product -> {
         product.setProductCategory(newProduct.getProductCategory());
@@ -109,7 +114,7 @@ public class ProductService {
               totalOccurances++;
           }
       }
-      if (totalOccurances > 1) {
+      if (totalOccurances > 1) { // if there are more than 1 occurances where the productname already exists
         try {
             throw new ProductNameDuplicateException(prod.getName());
           } catch (Exception e) {
@@ -120,9 +125,11 @@ public class ProductService {
         return prod.toString();
       }
 
+      // return an error
       return "\nError, product name already exists: " + prod.getName();
     }
 
+    // update product productdetail
     public Product updateProductProductDetail(Long id, long productDetailid) {
         Product product = repository.findById(id).orElseThrow(RuntimeException::new);
         ProductDetail productDetail = productDetailRepository.findById(productDetailid).orElseThrow(RuntimeException::new);

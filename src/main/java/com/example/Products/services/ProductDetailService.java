@@ -28,6 +28,7 @@ public class ProductDetailService {
         return repository.findAll();
     }
 
+    // update a productdetail
     public ProductDetail updateProductDetail(ProductDetail newProductDetail, Long id) {
         return repository.findById(id)
         .map(productDetail -> {
