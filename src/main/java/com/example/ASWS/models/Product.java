@@ -7,7 +7,6 @@ import javax.persistence.*;
 // Product Class
 @Entity
 public class Product {
-	// Attributes of class fields (Parameters) are declared.
 	private @Id @GeneratedValue(generator = "productSeq") Long id;
 	private String productCategory;
 	private String name;
