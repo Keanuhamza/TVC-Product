@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Product {
 	// Attributes of class fields (Parameters) are declared.
-	private @Id @GeneratedValue Long id;
+	private @Id @GeneratedValue(generator = "productSeq") Long id;
 	private String productCategory;
 	private String name;
 	private float price;
@@ -28,7 +28,16 @@ public class Product {
 		this.price = price;
 		this.stockQuantity = stockQuantity;
 	}
-	  
+
+	public Product(Long id, String productCategory, String name, float price, int stockQuantity, ProductDetail productDetail) {
+		this.id = id;
+		this.productCategory = productCategory;
+		this.name = name;
+		this.price = price;
+		this.stockQuantity = stockQuantity;
+		this.productDetail = productDetail;
+	}
+
 	// Accessor Methods
 
 	public Long getId() {
